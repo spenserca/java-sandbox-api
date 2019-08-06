@@ -1,0 +1,5 @@
+# This file is intentionally empty to resolve an issue when running in IBM Websphere
+# specifically when using the com.ibm... Classloader.
+#
+# See: https://github.com/flyway/flyway/blob/master/flyway-core/src/main/java/org/flywaydb/core/internal/util/scanner/classpath/ClassPathScanner.java
+# Method: ClassPathScanner.getLocationUrlsForPath()
