@@ -13,7 +13,7 @@ public class TeamDto {
             teamDao.getId(),
             teamDao.getName(),
             teamDao.getDescription(),
-            teamDao.getCreatedDate()
+            teamDao.getNodifiedDate()
         );
     }
 }

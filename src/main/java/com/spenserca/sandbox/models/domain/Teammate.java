@@ -6,15 +6,18 @@ import lombok.Getter;
 import java.sql.Timestamp;
 
 @AllArgsConstructor
-public class Team {
+public class Teammate {
     @Getter
     private int id;
 
     @Getter
-    private String name;
+    private String firstName;
 
     @Getter
-    private String description;
+    private String lastName;
+
+    @Getter
+    private String nickName;
 
     @Getter
     private Timestamp modifiedDate;

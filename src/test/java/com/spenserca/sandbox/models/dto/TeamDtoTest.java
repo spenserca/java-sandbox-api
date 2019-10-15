@@ -24,7 +24,7 @@ public class TeamDtoTest {
             teamDao.getId(),
             teamDao.getName(),
             teamDao.getDescription(),
-            teamDao.getCreatedDate()
+            teamDao.getNodifiedDate()
         );
 
         Team actual = underTest.toModel(teamDao);
@@ -33,7 +33,7 @@ public class TeamDtoTest {
         softly.assertThat(actual.getId()).isEqualTo(expected.getId());
         softly.assertThat(actual.getName()).isEqualTo(expected.getName());
         softly.assertThat(actual.getDescription()).isEqualTo(expected.getDescription());
-        softly.assertThat(actual.getCreatedDate()).isEqualTo(expected.getCreatedDate());
+        softly.assertThat(actual.getModifiedDate()).isEqualTo(expected.getModifiedDate());
         softly.assertAll();
     }
 }

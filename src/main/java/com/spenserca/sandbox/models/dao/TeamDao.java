@@ -30,6 +30,6 @@ public class TeamDao {
     private String description;
 
     @NotNull
-    @Column(name = "CreatedDate")
-    private Timestamp createdDate;
+    @Column(name = "ModifiedDate")
+    private Timestamp nodifiedDate;
 }
