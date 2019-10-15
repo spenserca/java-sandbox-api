@@ -2,8 +2,9 @@ package com.spenserca.sandbox.models.dto;
 
 import com.spenserca.sandbox.models.dao.TeamDao;
 import com.spenserca.sandbox.models.domain.Team;
-import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.NotNull;
 
 @Component
 public class TeamDto {
