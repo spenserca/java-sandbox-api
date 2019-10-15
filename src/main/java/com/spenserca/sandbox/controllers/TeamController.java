@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -32,10 +31,10 @@ public class TeamController {
     @RequestMapping(method = RequestMethod.GET, path = "/teams")
     public ResponseEntity<List<Team>> get() {
         try {
-            Optional<List<TeamDao>> teamDaos = teamRepository.getAll();
+            List<TeamDao> teamDaos = teamRepository.findAll();
 
-            if (teamDaos.isPresent()) {
-                List<Team> teams = teamDaos.get()
+            if (!teamDaos.isEmpty()) {
+                List<Team> teams = teamDaos
                     .stream()
                     .map(teamDto::toModel)
                     .collect(Collectors.toList());

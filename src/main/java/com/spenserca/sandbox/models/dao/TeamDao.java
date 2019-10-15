@@ -3,6 +3,7 @@ package com.spenserca.sandbox.models.dao;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(schema = "spenserca", name = "Team")
 public class TeamDao {
