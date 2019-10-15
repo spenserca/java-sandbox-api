@@ -1,33 +1,19 @@
 package com.spenserca.sandbox.models.dto;
 
+import com.spenserca.sandbox.RandomGenerator;
 import com.spenserca.sandbox.models.dao.TeamDao;
 import com.spenserca.sandbox.models.domain.Team;
-import org.apache.commons.lang.RandomStringUtils;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
-
-import java.sql.Timestamp;
-import java.util.Random;
 
 public class TeamDtoTest {
     private TeamDto underTest = new TeamDto();
 
     @Test
     public void toModel_Called_ReturnsCorrectlyMappedTeamObject() {
-        TeamDao teamDao = new TeamDao(
-            new Random().nextInt(),
-            RandomStringUtils.randomAlphanumeric(10),
-            RandomStringUtils.randomAlphanumeric(10),
-            new Timestamp(new Random().nextLong())
-        );
-        Team expected = new Team(
-            teamDao.getId(),
-            teamDao.getName(),
-            teamDao.getDescription(),
-            teamDao.getNodifiedDate()
-        );
+        TeamDao expected = RandomGenerator.getTeamDao();
 
-        Team actual = underTest.toModel(teamDao);
+        Team actual = underTest.toModel(expected);
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(actual.getId()).isEqualTo(expected.getId());

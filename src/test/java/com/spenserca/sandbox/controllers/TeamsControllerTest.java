@@ -16,8 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-public class TeamControllerTest {
-    private TeamController underTest;
+public class TeamsControllerTest {
+    private TeamsController underTest;
     private TeamRepository mockTeamRepository = mock(TeamRepository.class);
     private TeamDto mockTeamDto = mock(TeamDto.class);
 
@@ -26,14 +26,14 @@ public class TeamControllerTest {
         when(mockTeamRepository.findAll()).thenReturn(Collections.singletonList(RandomGenerator.getTeamDao()));
         when(mockTeamDto.toModel(any())).thenReturn(RandomGenerator.getTeam());
 
-        underTest = new TeamController(
+        underTest = new TeamsController(
             mockTeamRepository,
             mockTeamDto
         );
     }
 
     @Test
-    public void get_Called_CallsTeamRepositoryGetAll() {
+    public void get_Called_CallsTeamRepositoryFindAll() {
         underTest.get();
 
         verify(mockTeamRepository).findAll();
@@ -74,7 +74,7 @@ public class TeamControllerTest {
     }
 
     @Test
-    public void get_TeamRepositoryGetAllThrowsNullPointerException_ThrowsRuntimeException() {
+    public void get_TeamRepositoryFindAllThrowsNullPointerException_ThrowsRuntimeException() {
         NullPointerException expectedCause = new NullPointerException();
         String expectedMessage = "Error getting teams";
         when(mockTeamRepository.findAll()).thenThrow(expectedCause);

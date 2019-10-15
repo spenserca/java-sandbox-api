@@ -29,7 +29,6 @@ public class TeamDao {
     @Column(name = "Description")
     private String description;
 
-    @NotNull
     @Column(name = "ModifiedDate")
-    private Timestamp nodifiedDate;
+    private Timestamp modifiedDate;
 }
