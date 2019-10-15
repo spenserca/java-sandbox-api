@@ -2,11 +2,9 @@ package com.spenserca.sandbox.models.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-@NoArgsConstructor
 @AllArgsConstructor
 public class Team {
     @Getter

@@ -1,18 +1,17 @@
 package com.spenserca.sandbox.controllers;
 
+import com.spenserca.sandbox.RandomGenerator;
 import com.spenserca.sandbox.models.dao.TeamDao;
 import com.spenserca.sandbox.models.domain.Team;
+import com.spenserca.sandbox.models.dto.TeamDto;
 import com.spenserca.sandbox.repositories.TeamRepository;
-import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
-import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -20,14 +19,18 @@ import static org.mockito.Mockito.*;
 
 public class TeamControllerTest {
     private TeamController underTest;
-    private TeamRepository mockTeamRepository;
+    private TeamRepository mockTeamRepository = mock(TeamRepository.class);
+    private TeamDto mockTeamDto = mock(TeamDto.class);
 
     @Before
     public void setUp() {
-        mockTeamRepository = mock(TeamRepository.class);
-        when(mockTeamRepository.getAll()).thenReturn(Optional.of(Collections.emptyList()));
+        when(mockTeamRepository.getAll()).thenReturn(Optional.of(Collections.singletonList(RandomGenerator.getTeamDao())));
+        when(mockTeamDto.toModel(any())).thenReturn(RandomGenerator.getTeam());
 
-        underTest = new TeamController(mockTeamRepository);
+        underTest = new TeamController(
+            mockTeamRepository,
+            mockTeamDto
+        );
     }
 
     @Test
@@ -38,25 +41,37 @@ public class TeamControllerTest {
     }
 
     @Test
-    public void get_CalledAndTeamsAreFound_ReturnsListOfMappedTeams() {
-        TeamDao teamDao = new TeamDao(
-            new Random().nextInt(),
-            RandomStringUtils.random(10),
-            RandomStringUtils.random(10),
-            new Timestamp(new Random().nextLong())
-        );
+    public void get_CalledAndTeamsAreFound_CallsTeamDtoToModelWithCorrectParams() {
+        TeamDao expected = RandomGenerator.getTeamDao();
+        when(mockTeamRepository.getAll()).thenReturn(Optional.of(Collections.singletonList(expected)));
+
+        underTest.get();
+
+        verify(mockTeamDto).toModel(expected);
+    }
+
+    @Test
+    public void get_CalledAndTeamsAreFound_ReturnsValueFromTeamDtoToModel() {
+        TeamDao teamDao = RandomGenerator.getTeamDao();
+        Team expectedTeam = RandomGenerator.getTeam();
+        List<Team> expected = Collections.singletonList(expectedTeam);
         when(mockTeamRepository.getAll()).thenReturn(Optional.of(Collections.singletonList(teamDao)));
-        List<Team> expected = Collections.singletonList(new Team(
-            teamDao.getId(),
-            teamDao.getName(),
-            teamDao.getDescription(),
-            teamDao.getCreatedDate()
-        ));
+        when(mockTeamDto.toModel(teamDao)).thenReturn(expectedTeam);
 
         ResponseEntity<List<Team>> responseEntity = underTest.get();
 
         List<Team> actual = responseEntity.getBody();
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void get_CalledAndNoTeamsAreFound_ReturnsEmptyList() {
+        when(mockTeamRepository.getAll()).thenReturn(Optional.empty());
+
+        ResponseEntity<List<Team>> responseEntity = underTest.get();
+
+        List<Team> actual = responseEntity.getBody();
+        assertThat(actual).isEmpty();
     }
 
     @Test

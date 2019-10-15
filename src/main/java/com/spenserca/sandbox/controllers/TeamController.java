@@ -2,6 +2,7 @@ package com.spenserca.sandbox.controllers;
 
 import com.spenserca.sandbox.models.dao.TeamDao;
 import com.spenserca.sandbox.models.domain.Team;
+import com.spenserca.sandbox.models.dto.TeamDto;
 import com.spenserca.sandbox.repositories.TeamRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,15 @@ import java.util.stream.Collectors;
 @RestController
 public class TeamController {
     private TeamRepository teamRepository;
+    private TeamDto teamDto;
 
     @Inject
-    public TeamController(TeamRepository teamRepository) {
+    public TeamController(
+        TeamRepository teamRepository,
+        TeamDto teamDto
+    ) {
         this.teamRepository = teamRepository;
+        this.teamDto = teamDto;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/teams")
@@ -31,7 +37,7 @@ public class TeamController {
             if (teamDaos.isPresent()) {
                 List<Team> teams = teamDaos.get()
                     .stream()
-                    .map((td) -> new Team(td.getId(), td.getName(), td.getDescription(), td.getCreatedDate()))
+                    .map(teamDto::toModel)
                     .collect(Collectors.toList());
 
                 return ResponseEntity.ok(teams);
