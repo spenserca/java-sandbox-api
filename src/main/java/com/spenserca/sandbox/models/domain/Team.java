@@ -1,4 +1,4 @@
-package com.spenserca.sandbox.models;
+package com.spenserca.sandbox.models.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
