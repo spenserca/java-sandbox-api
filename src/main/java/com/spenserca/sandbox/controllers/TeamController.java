@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class TeamsController {
+public class TeamController {
     private TeamRepository teamRepository;
     private TeamDto teamDto;
 
     @Inject
-    public TeamsController(
+    public TeamController(
         TeamRepository teamRepository,
         TeamDto teamDto
     ) {

@@ -16,8 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-public class TeammatesControllerTest {
-    private TeammatesController underTest;
+public class TeammateControllerTest {
+    private TeammateController underTest;
     private TeammateRepository mockTeammateRepository = mock(TeammateRepository.class);
     private TeammateDto mockTeammateDto = mock(TeammateDto.class);
 
@@ -26,7 +26,7 @@ public class TeammatesControllerTest {
         when(mockTeammateRepository.findAll()).thenReturn(Collections.singletonList(RandomGenerator.getTeammateDao()));
         when(mockTeammateDto.toModel(any())).thenReturn(RandomGenerator.getTeammate());
 
-        underTest = new TeammatesController(
+        underTest = new TeammateController(
             mockTeammateRepository,
             mockTeammateDto
         );
