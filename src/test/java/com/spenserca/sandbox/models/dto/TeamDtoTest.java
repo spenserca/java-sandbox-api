@@ -16,7 +16,7 @@ public class TeamDtoTest {
         Team actual = underTest.toModel(expected);
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(actual.getId()).isEqualTo(expected.getId());
+        softly.assertThat(actual.getTeamId()).isEqualTo(expected.getId());
         softly.assertThat(actual.getName()).isEqualTo(expected.getName());
         softly.assertThat(actual.getDescription()).isEqualTo(expected.getDescription());
         softly.assertThat(actual.getModifiedDate()).isEqualTo(expected.getModifiedDate());

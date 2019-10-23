@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Teammate {
     @Getter
-    private int id;
+    private int teammateId;
 
     @Getter
     private String firstName;

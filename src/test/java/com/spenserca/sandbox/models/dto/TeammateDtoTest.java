@@ -16,7 +16,7 @@ public class TeammateDtoTest {
         Teammate actual = underTest.toModel(expected);
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(actual.getId()).isEqualTo(expected.getId());
+        softly.assertThat(actual.getTeammateId()).isEqualTo(expected.getId());
         softly.assertThat(actual.getFirstName()).isEqualTo(expected.getFirstName());
         softly.assertThat(actual.getLastName()).isEqualTo(expected.getLastName());
         softly.assertThat(actual.getNickName()).isEqualTo(expected.getNickName());
