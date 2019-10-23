@@ -41,10 +41,10 @@ public class TeammateController {
 
                 return ResponseEntity.ok(teammates);
             }
+
+            return ResponseEntity.ok(Collections.emptyList());
         } catch (Exception e) {
             throw new RuntimeException("Error getting teammates", e);
         }
-
-        return ResponseEntity.ok(Collections.emptyList());
     }
 }

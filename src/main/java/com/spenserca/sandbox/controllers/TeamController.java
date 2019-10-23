@@ -41,10 +41,10 @@ public class TeamController {
 
                 return ResponseEntity.ok(teams);
             }
+
+            return ResponseEntity.ok(Collections.emptyList());
         } catch (Exception e) {
             throw new RuntimeException("Error getting teams", e);
         }
-
-        return ResponseEntity.ok(Collections.emptyList());
     }
 }
