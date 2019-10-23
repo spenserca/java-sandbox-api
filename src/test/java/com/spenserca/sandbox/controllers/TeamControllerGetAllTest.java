@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-public class TeamControllerTest {
+public class TeamControllerGetAllTest {
     private TeamController underTest;
     private TeamRepository mockTeamRepository = mock(TeamRepository.class);
     private TeamDto mockTeamDto = mock(TeamDto.class);
@@ -34,7 +34,7 @@ public class TeamControllerTest {
 
     @Test
     public void get_Called_CallsTeamRepositoryFindAll() {
-        underTest.get();
+        underTest.getAll();
 
         verify(mockTeamRepository).findAll();
     }
@@ -44,7 +44,7 @@ public class TeamControllerTest {
         TeamDao expected = RandomGenerator.getTeamDao();
         when(mockTeamRepository.findAll()).thenReturn(Collections.singletonList(expected));
 
-        underTest.get();
+        underTest.getAll();
 
         verify(mockTeamDto).toModel(expected);
     }
@@ -57,7 +57,7 @@ public class TeamControllerTest {
         when(mockTeamRepository.findAll()).thenReturn(Collections.singletonList(teamDao));
         when(mockTeamDto.toModel(teamDao)).thenReturn(expectedTeam);
 
-        ResponseEntity<List<Team>> responseEntity = underTest.get();
+        ResponseEntity<List<Team>> responseEntity = underTest.getAll();
 
         List<Team> actual = responseEntity.getBody();
         assertThat(actual).isEqualTo(expected);
@@ -67,7 +67,7 @@ public class TeamControllerTest {
     public void get_CalledAndNoTeamsAreFound_ReturnsEmptyList() {
         when(mockTeamRepository.findAll()).thenReturn(Collections.emptyList());
 
-        ResponseEntity<List<Team>> responseEntity = underTest.get();
+        ResponseEntity<List<Team>> responseEntity = underTest.getAll();
 
         List<Team> actual = responseEntity.getBody();
         assertThat(actual).isEmpty();
@@ -79,7 +79,7 @@ public class TeamControllerTest {
         String expectedMessage = "Error getting teams";
         when(mockTeamRepository.findAll()).thenThrow(expectedCause);
 
-        assertThatThrownBy(() -> underTest.get()).hasMessage(expectedMessage);
-        assertThatThrownBy(() -> underTest.get()).hasCause(expectedCause);
+        assertThatThrownBy(() -> underTest.getAll()).hasMessage(expectedMessage);
+        assertThatThrownBy(() -> underTest.getAll()).hasCause(expectedCause);
     }
 }

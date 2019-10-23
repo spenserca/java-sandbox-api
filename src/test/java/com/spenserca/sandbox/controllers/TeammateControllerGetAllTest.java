@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-public class TeammateControllerTest {
+public class TeammateControllerGetAllTest {
     private TeammateController underTest;
     private TeammateRepository mockTeammateRepository = mock(TeammateRepository.class);
     private TeammateDto mockTeammateDto = mock(TeammateDto.class);
@@ -35,7 +35,7 @@ public class TeammateControllerTest {
 
     @Test
     public void get_Called_CallsTeammateRepositoryFindAll() {
-        underTest.get();
+        underTest.getAll();
 
         verify(mockTeammateRepository).findAll();
     }
@@ -45,7 +45,7 @@ public class TeammateControllerTest {
         TeammateDao expected = RandomGenerator.getTeammateDao();
         when(mockTeammateRepository.findAll()).thenReturn(Collections.singletonList(expected));
 
-        underTest.get();
+        underTest.getAll();
 
         verify(mockTeammateDto).toModel(expected);
     }
@@ -58,7 +58,7 @@ public class TeammateControllerTest {
         when(mockTeammateRepository.findAll()).thenReturn(Collections.singletonList(TeammateDao));
         when(mockTeammateDto.toModel(TeammateDao)).thenReturn(expectedTeammate);
 
-        ResponseEntity<List<Teammate>> responseEntity = underTest.get();
+        ResponseEntity<List<Teammate>> responseEntity = underTest.getAll();
 
         List<Teammate> actual = responseEntity.getBody();
         assertThat(actual).isEqualTo(expected);
@@ -68,7 +68,7 @@ public class TeammateControllerTest {
     public void get_CalledAndNoTeamsAreFound_ReturnsEmptyList() {
         when(mockTeammateRepository.findAll()).thenReturn(Collections.emptyList());
 
-        ResponseEntity<List<Teammate>> responseEntity = underTest.get();
+        ResponseEntity<List<Teammate>> responseEntity = underTest.getAll();
 
         List<Teammate> actual = responseEntity.getBody();
         assertThat(actual).isEmpty();
@@ -80,7 +80,7 @@ public class TeammateControllerTest {
         String expectedMessage = "Error getting teammates";
         when(mockTeammateRepository.findAll()).thenThrow(expectedCause);
 
-        assertThatThrownBy(() -> underTest.get()).hasMessage(expectedMessage);
-        assertThatThrownBy(() -> underTest.get()).hasCause(expectedCause);
+        assertThatThrownBy(() -> underTest.getAll()).hasMessage(expectedMessage);
+        assertThatThrownBy(() -> underTest.getAll()).hasCause(expectedCause);
     }
 }

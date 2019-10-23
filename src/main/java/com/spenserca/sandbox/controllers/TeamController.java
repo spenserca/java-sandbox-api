@@ -29,7 +29,7 @@ public class TeamController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/teams")
-    public ResponseEntity<List<Team>> get() {
+    public ResponseEntity<List<Team>> getAll() {
         try {
             List<TeamDao> teamDaos = teamRepository.findAll();
 
