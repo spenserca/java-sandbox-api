@@ -33,14 +33,14 @@ public class TeamControllerGetAllTest {
     }
 
     @Test
-    public void get_Called_CallsTeamRepositoryFindAll() {
+    public void getAll_Called_CallsTeamRepositoryFindAll() {
         underTest.getAll();
 
         verify(mockTeamRepository).findAll();
     }
 
     @Test
-    public void get_CalledAndTeamsAreFound_CallsTeamDtoToModelWithCorrectParams() {
+    public void getAll_CalledAndTeamsAreFound_CallsTeamDtoToModelWithCorrectParams() {
         TeamDao expected = RandomGenerator.getTeamDao();
         when(mockTeamRepository.findAll()).thenReturn(Collections.singletonList(expected));
 
@@ -50,7 +50,7 @@ public class TeamControllerGetAllTest {
     }
 
     @Test
-    public void get_CalledAndTeamsAreFound_ReturnsValueFromTeamDtoToModel() {
+    public void getAll_CalledAndTeamsAreFound_ReturnsValueFromTeamDtoToModel() {
         TeamDao teamDao = RandomGenerator.getTeamDao();
         Team expectedTeam = RandomGenerator.getTeam();
         List<Team> expected = Collections.singletonList(expectedTeam);
@@ -64,7 +64,7 @@ public class TeamControllerGetAllTest {
     }
 
     @Test
-    public void get_CalledAndNoTeamsAreFound_ReturnsEmptyList() {
+    public void getAll_CalledAndNoTeamsAreFound_ReturnsEmptyList() {
         when(mockTeamRepository.findAll()).thenReturn(Collections.emptyList());
 
         ResponseEntity<List<Team>> responseEntity = underTest.getAll();
@@ -74,7 +74,7 @@ public class TeamControllerGetAllTest {
     }
 
     @Test
-    public void get_TeamRepositoryFindAllThrowsNullPointerException_ThrowsRuntimeException() {
+    public void getAll_TeamRepositoryFindAllThrowsNullPointerException_ThrowsRuntimeException() {
         NullPointerException expectedCause = new NullPointerException();
         String expectedMessage = "Error getting teams";
         when(mockTeamRepository.findAll()).thenThrow(expectedCause);
