@@ -7,22 +7,21 @@ import com.spenserca.sandbox.repositories.TeamRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
-public class TeamController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TeamController.class);
+public class TeamGetController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TeamGetController.class);
     private TeamRepository teamRepository;
     private TeamDto teamDto;
 
     @Inject
-    public TeamController(
+    public TeamGetController(
         TeamRepository teamRepository,
         TeamDto teamDto
     ) {
@@ -30,31 +29,9 @@ public class TeamController {
         this.teamDto = teamDto;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/teams")
-    public ResponseEntity<List<Team>> getAll() {
-        LOGGER.info("TeamController.getAll called");
-
-        try {
-            List<TeamDao> teamDaos = teamRepository.findAll();
-
-            if (!teamDaos.isEmpty()) {
-                List<Team> teams = teamDaos
-                    .stream()
-                    .map(teamDto::toModel)
-                    .collect(Collectors.toList());
-
-                return ResponseEntity.ok(teams);
-            }
-
-            return ResponseEntity.ok(Collections.emptyList());
-        } catch (Exception e) {
-            throw new RuntimeException("Error getting teams", e);
-        }
-    }
-
     @GetMapping(path = "/teams/{id}")
-    public ResponseEntity<Team> getById(@PathVariable int id) {
-        LOGGER.info("TeamController.getById called with id: " + id);
+    public ResponseEntity<Team> get(@PathVariable int id) {
+        LOGGER.info("TeamController.get called with id: " + id);
 
         try {
             Optional<TeamDao> optionalTeamDao = teamRepository.findById(id);

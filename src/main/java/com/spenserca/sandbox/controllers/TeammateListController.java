@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class TeammateController {
+public class TeammateListController {
     private TeammateRepository teammateRepository;
     private TeammateDto teammateDto;
 
     @Inject
-    public TeammateController(
+    public TeammateListController(
         TeammateRepository teammateRepository,
         TeammateDto teammateDto
     ) {
@@ -29,7 +29,7 @@ public class TeammateController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/teammates")
-    public ResponseEntity<List<Teammate>> getAll() {
+    public ResponseEntity<List<Teammate>> get() {
         try {
             List<TeammateDao> teammateDaos = teammateRepository.findAll();
 
