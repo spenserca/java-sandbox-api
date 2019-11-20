@@ -4,9 +4,10 @@ import com.spenserca.sandbox.models.dao.TeammateDao;
 import com.spenserca.sandbox.models.domain.Teammate;
 import com.spenserca.sandbox.models.dto.TeammateDto;
 import com.spenserca.sandbox.repositories.TeammateRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
@@ -15,12 +16,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class TeammateController {
+public class TeammateListController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TeammateListController.class);
     private TeammateRepository teammateRepository;
     private TeammateDto teammateDto;
 
     @Inject
-    public TeammateController(
+    public TeammateListController(
         TeammateRepository teammateRepository,
         TeammateDto teammateDto
     ) {
@@ -28,8 +30,10 @@ public class TeammateController {
         this.teammateDto = teammateDto;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/teammates")
-    public ResponseEntity<List<Teammate>> getAll() {
+    @GetMapping(path = "/teammates")
+    public ResponseEntity<List<Teammate>> get() {
+        LOGGER.info("TeamListController called");
+
         try {
             List<TeammateDao> teammateDaos = teammateRepository.findAll();
 
