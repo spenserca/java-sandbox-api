@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
@@ -20,6 +17,7 @@ public class TeamDao {
     @Id
     @NotNull
     @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
@@ -30,5 +28,6 @@ public class TeamDao {
     private String description;
 
     @Column(name = "ModifiedDate")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Timestamp modifiedDate;
 }

@@ -22,4 +22,18 @@ public class TeamDtoTest {
         softly.assertThat(actual.getModifiedDate()).isEqualTo(expected.getModifiedDate());
         softly.assertAll();
     }
+
+    @Test
+    public void toDao_Called_ReturnsCorrectlyMappedTeamDaoObject() {
+        Team expected = RandomGenerator.getTeam();
+
+        TeamDao actual = underTest.toDao(expected);
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(actual.getId()).isEqualTo(expected.getTeamId());
+        softly.assertThat(actual.getName()).isEqualTo(expected.getName());
+        softly.assertThat(actual.getDescription()).isEqualTo(expected.getDescription());
+        softly.assertThat(actual.getModifiedDate()).isEqualTo(expected.getModifiedDate());
+        softly.assertAll();
+    }
 }

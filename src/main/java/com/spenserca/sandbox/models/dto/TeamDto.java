@@ -16,4 +16,13 @@ public class TeamDto {
             teamDao.getModifiedDate()
         );
     }
+
+    public TeamDao toDao(@NotNull Team team) {
+        return new TeamDao(
+            team.getTeamId(),
+            team.getName(),
+            team.getDescription(),
+            team.getModifiedDate()
+        );
+    }
 }
