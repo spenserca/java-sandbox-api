@@ -29,11 +29,11 @@ public class TeamPostController {
     }
 
     @PostMapping(path = "/teams")
-    public ResponseEntity<Team> post(@RequestBody Team team) {
+    public ResponseEntity<TeamDao> post(@RequestBody Team team) {
         TeamDao teamDao = teamDto.toDao(team);
 
-        teamRepository.save(teamDao);
+        TeamDao savedTeam = teamRepository.save(teamDao);
 
-        return ResponseEntity.ok(team);
+        return ResponseEntity.ok(savedTeam);
     }
 }
