@@ -3,6 +3,7 @@ package com.spenserca.sandbox.models.dao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,7 +18,7 @@ public class TeamDao {
     @Id
     @NotNull
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
@@ -27,7 +28,7 @@ public class TeamDao {
     @Column(name = "Description")
     private String description;
 
+    @UpdateTimestamp
     @Column(name = "ModifiedDate")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Timestamp modifiedDate;
 }

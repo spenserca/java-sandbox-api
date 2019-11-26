@@ -22,7 +22,7 @@ public class TeamPostControllerTest {
     @Before
     public void setUp() {
         when(mockTeamRepository.save(any(TeamDao.class))).thenReturn(RandomGenerator.getTeamDao());
-        when(mockTeamDto.toModel(any(TeamDao.class))).thenReturn(RandomGenerator.getTeam());
+        when(mockTeamDto.toDao(any(Team.class))).thenReturn(RandomGenerator.getTeamDao());
 
         underTest = new TeamPostController(
             mockTeamRepository,
@@ -53,19 +53,20 @@ public class TeamPostControllerTest {
     public void post_Called_ReturnsOkResponse() {
         HttpStatus expected = HttpStatus.OK;
 
-        ResponseEntity<Team> response = underTest.post(RandomGenerator.getTeam());
+        ResponseEntity<TeamDao> response = underTest.post(RandomGenerator.getTeam());
 
         HttpStatus actual = response.getStatusCode();
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    public void post_Called_ReturnsPassedInTeam() {
-        Team expected = RandomGenerator.getTeam();
+    public void post_Called_ReturnsTheTeamDaoReturnedFromTeamRepositorySave() {
+        TeamDao expected = RandomGenerator.getTeamDao();
+        when(mockTeamRepository.save(any(TeamDao.class))).thenReturn(expected);
 
-        ResponseEntity<Team> response = underTest.post(expected);
+        ResponseEntity<TeamDao> response = underTest.post(RandomGenerator.getTeam());
 
-        Team actual = response.getBody();
+        TeamDao actual = response.getBody();
         assertThat(actual).isEqualTo(expected);
     }
 }
