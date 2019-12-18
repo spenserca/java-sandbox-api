@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "spenserca", name = "Team")
+@Table(schema = "public", name = "Team")
 public class TeamDao {
     @Id
     @NotNull

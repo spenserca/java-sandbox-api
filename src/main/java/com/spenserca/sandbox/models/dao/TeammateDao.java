@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "spenserca", name = "Teammate")
+@Table(schema = "public", name = "Teammate")
 public class TeammateDao {
     @Id
     @NotNull

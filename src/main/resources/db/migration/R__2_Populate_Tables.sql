@@ -1,13 +1,7 @@
-insert into spenserca.Team (Name, Description, ModifiedDate)
-select Name, Description, ModifiedDate
-from (values ('Baker''s Dozen', 'Non-Qualified Team 9', getdate()),
-             ('Fully Qualified', 'Non-Qualified Team 8', getdate())
-     ) v (Name, Description, ModifiedDate);
+insert into PUBLIC.Team (Name, Description, ModifiedDate)
+values ('Bakers Dozen', 'Non-Qualified Team 9', curdate()),
+       ('Fully Qualified', 'Non-Qualified Team 8', curdate());
 
-go
-
-insert into spenserca.Teammate (FirstName, LastName, NickName, ModifiedDate)
-select FirstName, LastName, NickName, ModifiedDate
-from (values (1, 'Spenser', 'Andreassen', 'Spen', getdate()),
-             (2, 'Sean', 'Matthews', 'Seanathon', getdate())
-     ) v (Id, FirstName, LastName, NickName, ModifiedDate);
+insert into PUBLIC.Teammate (FirstName, LastName, NickName, ModifiedDate)
+values ('Spenser', 'Andreassen', 'Spen', curdate()),
+       ('Sean', 'Matthews', 'Seanathon', curdate())

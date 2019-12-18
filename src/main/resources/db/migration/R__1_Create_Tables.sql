@@ -1,6 +1,4 @@
-drop table if exists spenserca.Team;
-
-create table spenserca.Team
+create table PUBLIC.Team
 (
     Id           int identity (1, 1) primary key,
     Name         varchar(64) not null,
@@ -8,11 +6,7 @@ create table spenserca.Team
     ModifiedDate datetime    not null
 );
 
-go
-
-drop table if exists spenserca.Teammate;
-
-create table spenserca.Teammate
+create table PUBLIC.Teammate
 (
     Id           int identity (1, 1) primary key,
     FirstName    varchar(64) not null,

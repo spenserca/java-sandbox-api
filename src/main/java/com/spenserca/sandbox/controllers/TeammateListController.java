@@ -6,11 +6,11 @@ import com.spenserca.sandbox.models.dto.TeammateDto;
 import com.spenserca.sandbox.repositories.TeammateRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,10 +21,10 @@ public class TeammateListController {
     private TeammateRepository teammateRepository;
     private TeammateDto teammateDto;
 
-    @Inject
+    @Autowired
     public TeammateListController(
-        TeammateRepository teammateRepository,
-        TeammateDto teammateDto
+            TeammateRepository teammateRepository,
+            TeammateDto teammateDto
     ) {
         this.teammateRepository = teammateRepository;
         this.teammateDto = teammateDto;
@@ -39,9 +39,9 @@ public class TeammateListController {
 
             if (!teammateDaos.isEmpty()) {
                 List<Teammate> teammates = teammateDaos
-                    .stream()
-                    .map(teammateDto::toModel)
-                    .collect(Collectors.toList());
+                        .stream()
+                        .map(teammateDto::toModel)
+                        .collect(Collectors.toList());
 
                 return ResponseEntity.ok(teammates);
             }
